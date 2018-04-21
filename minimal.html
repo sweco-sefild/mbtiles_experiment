@@ -40,7 +40,7 @@
 
             map.addLayer({
                 "id": "se_500k",
-                "type": "point",
+                "type": "circle",
                 "source": {
                     "type": "vector",
                     "tiles": [
@@ -49,7 +49,7 @@
                     "minzoom": 0,
                     "maxzoom": 16
                 },
-
+                "source-layer": "SE_500k_addr",
                 "layout": {
                     "visibility": "visible"
                 },
