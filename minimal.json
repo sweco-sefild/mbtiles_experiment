@@ -1,0 +1,32 @@
+{
+    "version": 6,
+    "constants": {
+      "@background": "#808080",
+      "@road": "#000000"
+    },
+    "sources": {
+      "osm_roads": {
+        "type": "vector",
+        "tiles": [
+          "http://localhost:7777/v2/tiles/{z}/{x}/{y}.pbf"
+        ],
+        "minzoom": 0,
+        "maxzoom": 12
+      }
+    },
+    "layers": [{
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "@background"
+      }
+    }, {
+      "id": "roads",
+      "type": "line",
+      "source": "osm_roads",
+      "source-layer": "roads",
+      "paint": {
+        "line-color": "@road"
+      }
+    }]
+  }
