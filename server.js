@@ -5,6 +5,7 @@ var tilelive = require('tilelive');
 require('mbtiles').registerProtocols(tilelive);
 var connect = require('connect');
 var serveStatic = require('serve-static');
+var path = require('path');
 
 tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function(err, source) {
 
