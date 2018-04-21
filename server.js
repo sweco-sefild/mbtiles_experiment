@@ -7,20 +7,20 @@ var connect = require('connect');
 var serveStatic = require('serve-static');
 var path = require('path');
 
-tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function(err, source) {
+tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function (err, source) {
 
     if (err) {
         throw err;
     }
     app.set('port', 7777);
 
-    app.use(function(req, res, next) {
+    app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
     });
 
-    app.get(/^\/v2\/tiles\/(\d+)\/(\d+)\/(\d+).pbf$/, function(req, res){
+    app.get(/^\/v2\/tiles\/(\d+)\/(\d+)\/(\d+).pbf$/, function (req, res) {
 
         var z = req.params[0];
         var x = req.params[1];
@@ -28,25 +28,25 @@ tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function(err, sourc
 
         console.log('get tile %d, %d, %d', z, x, y);
 
-        source.getTile(z, x, y, function(err, tile, headers) {
+        source.getTile(z, x, y, function (err, tile, headers) {
             if (err) {
                 res.status(404)
                 res.send(err.message);
                 console.log(err.message);
             } else {
-              res.set(headers);
-              res.send(tile);
+                res.set(headers);
+                res.send(tile);
             }
         });
     });
 
-    http.createServer(app).listen(app.get('port'), function() {
+    http.createServer(app).listen(app.get('port'), function () {
         console.log('Express server listening on port ' + app.get('port'));
     });
-	app.get('/json', function(req, res) {
+    app.get('/json', function (req, res) {
         res.sendFile(path.join(__dirname + '/minimal.json'));
     });
-app.get('/', function(req, res) {
+    app.get('/', function (req, res) {
         res.sendFile(path.join(__dirname + '/minimal.html'));
     });
 });

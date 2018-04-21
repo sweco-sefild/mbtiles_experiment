@@ -1,25 +1,112 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='UTF-8'/>
-    <title>Mapbox GL JS rendering my own tiles</title>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.4.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.4.0/mapbox-gl.js'></script>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Add a third party vector tile source</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
     <style>
-      body { margin:0; padding:0 }
-      #map { position:absolute; top:0; bottom:50px; width:100%; }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
-  </head>
-  <body>
-    <div id='map'>
-    </div>
+</head>
+
+<body>
+
+    <div id='map'></div>
     <script>
-      var map = new mapboxgl.Map({
-        container: 'map',
-        center: [59.501, 17.897],
-        zoom: 7,
-        style: 'http://34.245.11.164:7777/json'
-      });
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZmhpbGRpbmciLCJhIjoiY2luMDgyMXB3MDBubXY5bHlsZ3d0NXpuMCJ9.YzM1KUyixi_b2Vl1CF0e2g';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v9',
+            zoom: 12,
+            center: [59.504, 17.897]
+        });
+
+        map.on('load', function () {
+            // Add Mapillary sequence layer.
+            // https://www.mapillary.com/developer/tiles-documentation/#sequence-layer
+            map.addLayer({
+                "id": "se_500k",
+                "type": "line",
+                "se_500k": {
+                    "type": "vector",
+                    "tiles": [
+                        "http://localhost:7777/v2/tiles/{z}/{x}/{y}.pbf"
+                    ],
+                    "minzoom": 0,
+                    "maxzoom": 12
+                },
+
+                "layout": {
+                    "visibility": "visible"
+                },
+                "paint": {
+                    "circle-color": {
+                        "base": 1,
+                        "type": "categorical",
+                        "property": "type",
+                        "stops": [
+                            [
+                                "1",
+                                "hsl(0, 91%, 39%)"
+                            ],
+                            [
+                                "2",
+                                "hsl(61, 80%, 54%)"
+                            ],
+                            [
+                                "3",
+                                "hsl(97, 75%, 41%)"
+                            ],
+                            [
+                                "0",
+                                "hsl(0, 0%, 0%)"
+                            ]
+                        ],
+                        "default": "hsl(0, 12%, 26%)"
+                    },
+                    "circle-radius": {
+                        "base": 1,
+                        "type": "interval",
+                        "property": "type",
+                        "stops": [
+                            [
+                                0,
+                                5
+                            ],
+                            [
+                                1,
+                                15
+                            ],
+                            [
+                                2,
+                                45
+                            ],
+                            [
+                                5,
+                                45
+                            ]
+                        ]
+                    }
+                }
+            });
+        });
+
+        map.addControl(new mapboxgl.NavigationControl());
     </script>
-  </body>
+
+</body>
+
 </html>
