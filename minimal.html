@@ -37,16 +37,17 @@
         map.on('load', function () {
             // Add Mapillary sequence layer.
             // https://www.mapillary.com/developer/tiles-documentation/#sequence-layer
+
             map.addLayer({
                 "id": "se_500k",
-                "type": "line",
-                "se_500k": {
+                "type": "point",
+                "source": {
                     "type": "vector",
                     "tiles": [
                         "http://localhost:7777/v2/tiles/{z}/{x}/{y}.pbf"
                     ],
                     "minzoom": 0,
-                    "maxzoom": 12
+                    "maxzoom": 16
                 },
 
                 "layout": {
@@ -101,7 +102,8 @@
                         ]
                     }
                 }
-            });
+            }, 'waterway-label');
+
         });
 
         map.addControl(new mapboxgl.NavigationControl());
