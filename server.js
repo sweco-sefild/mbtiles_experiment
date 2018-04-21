@@ -43,8 +43,10 @@ tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function(err, sourc
     http.createServer(app).listen(app.get('port'), function() {
         console.log('Express server listening on port ' + app.get('port'));
     });
-    app.get('/', function(req, res) {
+	app.get('/json', function(req, res) {
+        res.sendFile(path.join(__dirname + '/minimal.json'));
+    });
+app.get('/', function(req, res) {
         res.sendFile(path.join(__dirname + '/minimal.html'));
     });
-    app.listen(8080);
 });
