@@ -33,8 +33,10 @@
         $(function () {
             $("button, input, a").click(function (event) {
                 console.log(event, this)
-                var output = $.get('/data');
-                console.log(output)
+                $.get('/data', "null", function (data) {
+                    console.log(data)
+                    alert(data)
+                });
             });
         });
         mapboxgl.accessToken = 'pk.eyJ1IjoiZmhpbGRpbmciLCJhIjoiY2luMDgyMXB3MDBubXY5bHlsZ3d0NXpuMCJ9.YzM1KUyixi_b2Vl1CF0e2g ';
