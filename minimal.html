@@ -47,10 +47,9 @@
             center: [17.9, 59.57]
         });
 
-        map.on('load ', function () {
+        map.on('load', function () {
             // Add Mapillary sequence layer.
             // https://www.mapillary.com/developer/tiles-documentation/#sequence-layer
-
             map.addLayer({
                 "id": "se_500k",
                 "type": "circle",
@@ -115,8 +114,7 @@
                         ]
                     }
                 }
-            }, 'waterway-label ');
-
+            });
         });
 
         map.addControl(new mapboxgl.NavigationControl());
