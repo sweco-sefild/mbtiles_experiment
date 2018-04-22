@@ -6,14 +6,14 @@ require('mbtiles').registerProtocols(tilelive);
 var connect = require('connect');
 var serveStatic = require('serve-static');
 var path = require('path');
+var exec = require('child_process').exec;
+var result = '';
 
 tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function (err, source) {
-
     if (err) {
         throw err;
     }
     app.set('port', 7777);
-
     app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -49,4 +49,20 @@ tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function (err, sour
     app.get('/', function (req, res) {
         res.sendFile(path.join(__dirname + '/minimal.html'));
     });
+    app.get('/data', function (req, res) {
+        var child = exec('ls -lh');
+
+        child.stdout.on('data', function (data) {
+            result += data;
+        });
+
+        child.on('close', function () {
+            console.log('done', result);
+            alert("DONE")
+        });
+    });
 });
+
+
+
+

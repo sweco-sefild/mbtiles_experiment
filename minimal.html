@@ -6,7 +6,7 @@
     <title>Add a third party vector tile source</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <link href='http://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
     <style>
         body {
             margin: 0;
@@ -15,7 +15,7 @@
 
         #map {
             position: absolute;
-            top: 0;
+            top: 10;
             bottom: 0;
             width: 100%;
         }
@@ -25,16 +25,33 @@
 <body>
 
     <div id='map'></div>
+    <div class='pill'>
+        <!--
+    -->
+        <a href='#' class='button'>Pizza Dog</a>
+        <!--
+    -->
+        <a href='#' class='button'>Penny Dog</a>
+        <!--
+    -->
+        <a href='#' class='button'>Charlotte Dog</a>
+    </div>
+
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZmhpbGRpbmciLCJhIjoiY2luMDgyMXB3MDBubXY5bHlsZ3d0NXpuMCJ9.YzM1KUyixi_b2Vl1CF0e2g';
+        $('pill').on('change', function (data) {
+            console.log(data, this)
+            var output = $.get('/data');
+            console.log(output)
+        });
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZmhpbGRpbmciLCJhIjoiY2luMDgyMXB3MDBubXY5bHlsZ3d0NXpuMCJ9.YzM1KUyixi_b2Vl1CF0e2g ';
         var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/light-v9',
+            container: 'map ',
+            style: 'mapbox://styles/mapbox/light-v9 ',
             zoom: 12,
             center: [17.9, 59.57]
         });
 
-        map.on('load', function () {
+        map.on('load ', function () {
             // Add Mapillary sequence layer.
             // https://www.mapillary.com/developer/tiles-documentation/#sequence-layer
 
@@ -102,7 +119,7 @@
                         ]
                     }
                 }
-            }, 'waterway-label');
+            }, 'waterway-label ');
 
         });
 
