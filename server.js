@@ -50,7 +50,7 @@ tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function (err, sour
         res.sendFile(path.join(__dirname + '/minimal.html'));
     });
     app.get('/data', function (req, res) {
-        var child = exec('ls -lh');
+        var child = exec('sh run.sh');
 
         child.stdout.on('data', function (data) {
             result += data;
