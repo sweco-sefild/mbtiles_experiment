@@ -58,7 +58,7 @@ tilelive.load('mbtiles:///home/ubuntu/data/se_500k.mbtiles', function (err, sour
 
         child.on('close', function () {
             console.log('done', result);
-            alert("DONE")
+            res.send("Data fixed")
         });
     });
 });
