@@ -7,6 +7,7 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
     <link href='http://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
     <style>
         body {
@@ -16,7 +17,7 @@
 
         #map {
             position: absolute;
-            top: 10;
+            top: 40px;
             bottom: 0;
             width: 100%;
         }
@@ -24,23 +25,17 @@
 </head>
 
 <body>
-    <div class='pill'>
-        <!--
-            -->
-        <a href='#' class='button'>Pizza Dog</a>
-        <!--
-            -->
-        <a href='#' class='button'>Penny Dog</a>
-        <!--
-            -->
-        <a href='#' class='button'>Charlotte Dog</a>
+    <div class="widget">
+        <input type="submit" value="Run reload script" class='button short'>
     </div>
     <div id='map'></div>
     <script>
-        $('pill').on('change', function (data) {
-            console.log(data, this)
-            var output = $.get('/data');
-            console.log(output)
+        $(function () {
+            $("button, input, a").click(function (event) {
+                console.log(event, this)
+                var output = $.get('/data');
+                console.log(output)
+            });
         });
         mapboxgl.accessToken = 'pk.eyJ1IjoiZmhpbGRpbmciLCJhIjoiY2luMDgyMXB3MDBubXY5bHlsZ3d0NXpuMCJ9.YzM1KUyixi_b2Vl1CF0e2g ';
         var map = new mapboxgl.Map({
