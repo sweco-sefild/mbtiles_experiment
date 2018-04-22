@@ -63,12 +63,13 @@ app.get('/data', function (req, res) {
     child.on('close', function () {
         console.log('done', result);
         loadData()
-        res.send("Data fixed")
+        res.redirect('back');
     });
 });
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
+    loadData()
 });
 
 
